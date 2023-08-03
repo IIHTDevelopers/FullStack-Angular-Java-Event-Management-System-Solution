@@ -1,0 +1,76 @@
+<div class="container">
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" class="form-control">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="text-danger">
+                <div *ngIf="f['name'].errors?.['required']">Name is required.</div>
+                <div *ngIf="f['name'].errors?.['minlength']">Name must be at least 3 characters.</div>
+                <div *ngIf="f['name'].errors?.['maxlength']">Name cannot exceed 20 characters.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea formControlName="description" class="form-control"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="text-danger">
+                <div *ngIf="f['description'].errors?.['required']">Description is required.</div>
+                <div *ngIf="f['description'].errors?.['minlength']">Description must be at least 5 characters.</div>
+                <div *ngIf="f['description'].errors?.['maxlength']">Description cannot exceed 200 characters.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select formControlName="status" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">{{ eventForm.value.id ? 'Update' :
+            'Create' }}</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Reset</button>
+    </form>
+
+    <hr>
+
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+        <div class="form-group">
+            <label for="searchName">Search by Name</label>
+            <input type="text" formControlName="searchName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="searchStatus">Search by Status</label>
+            <select formControlName="searchStatus" class="form-control">
+                <option value="">All</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
+        <button type="button" class="btn btn-secondary" (click)="resetSearchForm()">Reset Search</button>
+    </form>
+
+    <hr>
+
+    <h3>Event List</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let event of events">
+                <td>{{ event.name }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.status ? 'Active' : 'Inactive' }}</td>
+                <td>
+                    <button class="btn btn-info" (click)="onEdit(event)">Edit</button>
+                    <button class="btn btn-danger" (click)="onDelete(event)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
