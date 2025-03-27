@@ -97,18 +97,21 @@ public class TestUtils {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
-		
+
 		String hostName = System.getenv("HOSTNAME");
 		String AttemptId = System.getenv("ATTEMPT_ID");
+		String filePath = TestUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
 
 		testResults.setTestCaseResults(asJsonString(testCaseResults));
 		testResults.setCustomData(customData);
-		testResults.setHosttName(hostName);
+		testResults.setHostName(hostName);
 		testResults.setAttemptId(AttemptId);
+		testResults.setFilePath(filePath);
+
 
 		int length = 0;
 		if(customData != null) {length = customData.length(); }
-
 
 		try {
 
@@ -126,11 +129,9 @@ public class TestUtils {
 			os.close();
 
 			int responseCode = conn.getResponseCode();
-			if (!(responseCode == HttpURLConnection.HTTP_OK  || responseCode == HttpURLConnection.HTTP_CREATED)) { 
+			if (!(responseCode == HttpURLConnection.HTTP_OK  || responseCode == HttpURLConnection.HTTP_CREATED)) {
 				System.out.println(RED_BOLD_BRIGHT + "⚠️ Unable to push test cases,please try again! [" + responseCode +"|" + hostName +"|" + AttemptId + "|" + length + "]" + TEXT_RESET);
 			}
-
-
 
 			// BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 

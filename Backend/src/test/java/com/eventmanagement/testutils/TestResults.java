@@ -6,6 +6,7 @@ public class TestResults {
 	private String customData;
 	private String hostName;
 	private String attemptId;
+	private String filePath;
 
 	public String getTestCaseResults() {
 		return testCaseResults;
@@ -26,7 +27,7 @@ public class TestResults {
 		return hostName;
 	}
 
-	public void setHosttName(String hostName) {
+	public void setHostName(String hostName) {
 		this.hostName = hostName;
 	}
 	public String getAttemptId() {
@@ -35,6 +36,14 @@ public class TestResults {
 
 	public void setAttemptId(String attemptId) {
 		this.attemptId = attemptId;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+    public String getFilePath() {
+        return filePath;
 	}
 
 }
