@@ -77,7 +77,11 @@ public class TestUtils {
 		TestResults testResults = new TestResults();
 		Map<String, TestCaseResultDto> testCaseResults = new HashMap<String, TestCaseResultDto>();
 
-		customData = readData("../custom.ih");
+        customData = "";
+        try{
+		    customData = readData("../custom.ih");
+		}catch(Exception e)	{}
+
 		String resultStatus = "Failed";
 		int resultScore = 0;
 		if (result.toString().equals("true")) {
